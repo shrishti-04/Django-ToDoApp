@@ -1,0 +1,345 @@
+<link rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous">
+
+<style>
+
+    * {
+        box-sizing: border-box;
+    }
+
+    /* ==============================
+       PAGE BACKGROUND
+       ============================== */
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        background: linear-gradient(
+            135deg,
+            #172337 0%,
+            #263B59 65%,
+            #3B3155 100%
+        );
+
+        font-family: Arial, sans-serif;
+        color: #243447;
+    }
+
+
+    /* ==============================
+       MAIN CONTAINER
+       ============================== */
+
+    .center-column {
+        width: 720px;
+        max-width: 92%;
+
+        margin: 45px auto;
+        padding: 30px;
+
+        background-color: #FFFFFF;
+
+        border-radius: 12px;
+
+        box-shadow:
+            0 15px 40px rgba(0, 0, 0, 0.35);
+    }
+
+
+    /* ==============================
+       APP TITLE
+       ============================== */
+
+    .app-title {
+        text-align: center;
+
+        color: #172337;
+
+        font-size: 32px;
+        font-weight: 600;
+
+        margin: 0 0 25px 0;
+    }
+
+
+    /* ==============================
+       TASK INPUT
+       ============================== */
+
+    input[type="text"] {
+        width: 100%;
+
+        padding: 14px 18px;
+
+        margin: 5px 0 12px 0;
+
+        border: 1px solid #CBD5E1;
+        border-radius: 6px;
+
+        background-color: #FFFFFF;
+
+        color: #243447;
+
+        font-size: 16px;
+
+        outline: none;
+
+        transition: 0.2s;
+    }
+
+
+    input[type="text"]:focus {
+        border-color: #18A6B8;
+
+        box-shadow:
+            0 0 0 3px rgba(24, 166, 184, 0.12);
+    }
+
+
+    input::placeholder {
+        color: #A5B0BC;
+    }
+
+
+    /* ==============================
+       ADD TASK BUTTON
+       ============================== */
+
+    .submit-btn {
+        width: 100%;
+
+        padding: 12px;
+
+        margin-bottom: 22px;
+
+        background-color: #18A6B8;
+
+        border: none;
+        border-radius: 6px;
+
+        color: #FFFFFF;
+
+        font-size: 16px;
+        font-weight: 500;
+
+        cursor: pointer;
+
+        transition: 0.2s;
+    }
+
+
+    .submit-btn:hover {
+        background-color: #128D9D;
+    }
+
+
+    /* ==============================
+       TASK ROW
+       ============================== */
+
+    .item-row {
+        display: flex;
+        align-items: center;
+
+        gap: 6px;
+
+        background-color: #F5F7FA;
+
+        margin: 12px 0;
+
+        padding: 15px 16px;
+
+        border: 1px solid #D9E2EC;
+
+        border-left: 4px solid #18A6B8;
+
+        border-radius: 7px;
+
+        color: #243447;
+
+        font-size: 16px;
+
+        box-shadow:
+            0 3px 10px rgba(23, 35, 55, 0.08);
+
+        transition: all 0.2s ease;
+    }
+
+
+    .item-row:hover {
+        transform: translateY(-1px);
+
+        box-shadow:
+            0 6px 15px rgba(23, 35, 55, 0.14);
+
+        background-color: #F8FAFC;
+    }
+
+
+    /* ==============================
+       TASK TEXT
+       ============================== */
+
+    .item-row span,
+    .item-row strike {
+        margin-left: 4px;
+
+        font-size: 16px;
+    }
+
+
+    /* ==============================
+       UPDATE BUTTON
+       ============================== */
+
+    .btn-info {
+        background-color: #18A6B8;
+
+        border-color: #18A6B8;
+
+        color: #FFFFFF;
+
+        border-radius: 5px;
+
+        transition: 0.2s;
+    }
+
+
+    .btn-info:hover {
+        background-color: #128D9D;
+
+        border-color: #128D9D;
+
+        color: #FFFFFF;
+    }
+
+
+    /* ==============================
+       DELETE BUTTON
+       ============================== */
+
+    /* ==============================
+   DELETE BUTTON
+   ============================== */
+
+.btn-danger {
+    background-color: #E76F51;
+    border-color: #E76F51;
+    color: #FFFFFF;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+    background-color: #DC2626 !important;
+    border-color: #DC2626 !important;
+    color: #FFFFFF !important;
+}
+
+
+    /* ==============================
+       COMPLETED TASK
+       ============================== */
+
+    .item-row strike {
+        color: #8A97A6;
+    }
+
+
+    /* ==============================
+       MOBILE RESPONSIVE
+       ============================== */
+
+    @media (max-width: 600px) {
+
+        .center-column {
+            width: 94%;
+            margin: 25px auto;
+            padding: 20px;
+        }
+
+        .app-title {
+            font-size: 28px;
+        }
+
+        .item-row {
+            padding: 12px;
+        }
+
+    }
+
+</style>
+
+
+<div class="center-column">
+
+    <!-- App Title -->
+
+    <h3 class="app-title">
+        To Do App
+    </h3>
+
+
+    <!-- Add Task Form -->
+
+    <form method="POST" action="/">
+
+        {% csrf_token %}
+
+        {{form.title}}
+
+        <input
+            class="submit-btn"
+            type="submit"
+            name="Create a task"
+            value="Add Task">
+
+    </form>
+
+
+    <!-- Task List -->
+
+    {% for task in Tasks %}
+
+        <div class="item-row">
+
+            <!-- Update -->
+
+            <a
+                class="btn btn-sm btn-info"
+                href="{% url 'update_tasks' task.id %}">
+                Update
+            </a>
+
+
+            <!-- Delete -->
+
+            <a
+                class="btn btn-sm btn-danger"
+                href="{% url 'delete_tasks' task.id %}">
+                Delete
+            </a>
+
+
+            <!-- Task Status -->
+
+            {% if task.status == True %}
+
+                <strike>{{task}}</strike>
+
+            {% else %}
+
+                <span>{{task}}</span>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+</div>
